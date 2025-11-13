@@ -1,12 +1,14 @@
 public class Main {
     public static void main(String[] args) {
-        CDPlayer cdPlayer = new CDPlayer();
-        Smartphone smartphone = new Smartphone();
+        CDPlayer cdPlayer = new CDPlayer("Sony");
+        Smartphone smartphone = new Smartphone("Apple");
 
         //connect and play music
+        cdPlayer.info();
         cdPlayer.connect();
         cdPlayer.play();
         System.out.println("--------------------------------");
+        smartphone.info();
         smartphone.connect();
         smartphone.play();
     }
@@ -18,14 +20,22 @@ interface Playable {
 
 abstract class MusicDevice {
     private String brand;
-    abstract void connect();
 
-    void info() {
+    MusicDevice(String brand) {
+        this.brand = brand;
+    }
+
+    public abstract void connect();
+
+    public void info() {
         System.out.println("brand of the device: " + brand);
     }
 }
 
 class CDPlayer extends MusicDevice implements Playable {
+    CDPlayer(String brand) {
+        super(brand);
+    }
     public void connect() {
         System.out.println("connecting CD...");
     }
@@ -35,6 +45,9 @@ class CDPlayer extends MusicDevice implements Playable {
 }
 
 class Smartphone extends MusicDevice implements Playable {
+    Smartphone(String brand) {
+        super(brand);
+    }
     public void connect() {
         System.out.println("connecting through Bluetooth...");
     }
